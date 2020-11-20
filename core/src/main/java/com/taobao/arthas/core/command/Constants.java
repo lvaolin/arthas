@@ -25,12 +25,13 @@ public interface Constants {
 
     String WIKI = "\nWIKI:\n";
 
-    String WIKI_HOME = "  https://alibaba.github.io/arthas/";
+    String WIKI_HOME = "  https://arthas.aliyun.com/doc/";
 
     String EXPRESS_EXAMPLES =   "Examples:\n" +
                                 "  params\n" +
                                 "  params[0]\n" +
                                 "  'params[0]+params[1]'\n" +
+                                "  '{params[0], target, returnObj}'\n" +
                                 "  returnObj\n" +
                                 "  throwExp\n" +
                                 "  target\n" +

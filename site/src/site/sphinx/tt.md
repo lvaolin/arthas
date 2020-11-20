@@ -1,6 +1,8 @@
 tt
 ===
 
+[`tt`在线教程](https://arthas.aliyun.com/doc/arthas-tutorials.html?language=cn&id=command-tt)
+
 > 方法执行数据的时空隧道，记录下指定方法每次调用的入参和返回信息，并能对这些不同的时间下调用进行观测
 
 `watch` 虽然很方便和灵活，但需要提前想清楚观察表达式的拼写，这对排查问题而言要求太高，因为很多时候我们并不清楚问题出自于何方，只能靠蛛丝马迹进行猜测。
@@ -68,7 +70,7 @@ Affect(class-cnt:1 , method-cnt:1) cost in 66 ms.
   
 - 解决方法重载
 
-     `tt -t *Test print params[0].length==1`
+     `tt -t *Test print params.length==1`
      
      通过制定参数个数的形式解决不同的方法签名，如果参数个数一样，你还可以这样写
      
@@ -80,7 +82,7 @@ Affect(class-cnt:1 , method-cnt:1) cost in 66 ms.
 
 - 构成条件表达式的 `Advice` 对象
 
-    前边看到了很多条件表达式中，都适用了 `params[0]`，有关这个变量的介绍，请参考[表达式核心变量](advice-class.md)
+    前边看到了很多条件表达式中，都使用了 `params[0]`，有关这个变量的介绍，请参考[表达式核心变量](advice-class.md)
 
 #### 检索调用记录
 
@@ -147,7 +149,8 @@ Affect(row-cnt:1) cost in 11 ms.
 
 当你稍稍做了一些调整之后，你可能需要前端系统重新触发一次你的调用，此时得求爷爷告奶奶的需要前端配合联调的同学再次发起一次调用。而有些场景下，这个调用不是这么好触发的。
 
-`tt` 命令由于保存了当时调用的所有现场信息，所以我们可以自己主动对一个 `INDEX` 编号的时间片自主发起一次调用，从而解放你的沟通成本。此时你需要 `-p` 参数。
+`tt` 命令由于保存了当时调用的所有现场信息，所以我们可以自己主动对一个 `INDEX` 编号的时间片自主发起一次调用，从而解放你的沟通成本。此时你需要 `-p` 参数。通过 `--replay-times` 指定
+调用次数，通过 `--replay-interval` 指定多次调用间隔(单位ms, 默认1000ms)
 
 ```bash
 $ tt -i 1004 -p
@@ -159,6 +162,7 @@ $ tt -i 1004 -p
  PARAMETERS[0]  @Integer[946738738]
  IS-RETURN      true
  IS-EXCEPTION   false
+ COST(ms)         0.186073
  RETURN-OBJ     @ArrayList[
                     @Integer[2],
                     @Integer[11],
@@ -169,7 +173,7 @@ Time fragment[1004] successfully replayed.
 Affect(row-cnt:1) cost in 14 ms.
 ```
 
-你会发现结果虽然一样，但调用的路径发生了变化，有原来的程序发起变成了 Arthas 自己的内部线程发起的调用了。
+你会发现结果虽然一样，但调用的路径发生了变化，由原来的程序发起变成了 Arthas 自己的内部线程发起的调用了。
 
 - 需要强调的点
 

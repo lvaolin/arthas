@@ -1,6 +1,8 @@
 tt
 ==
 
+[`tt` online tutorial](https://arthas.aliyun.com/doc/arthas-tutorials.html?language=en&id=command-tt)
+
 Check the `parameters`, `return values` and `exceptions` of the methods at different times.
 
 `watch` is a powerful command but due to its feasibility and complexity, it's quite hard to locate the issue effectively. 
@@ -57,7 +59,7 @@ Affect(class-cnt:1 , method-cnt:1) cost in 66 ms.
 * Condition expression
 
 Tips:
-1. `tt -t *Test print params[0].length==1` with different amounts of parameters;
+1. `tt -t *Test print params.length==1` with different amounts of parameters;
 2. `tt -t *Test print 'params[1] instanceof Integer'` with different types of parameters;
 3. `tt -t *Test print params[0].mobile=="13989838402"` with specified parameter.
   
@@ -127,7 +129,8 @@ Affect(row-cnt:1) cost in 11 ms.
 
 ### Replay record
 
-Since Arthas stores the context of the call, you can even *replay* the method calling afterwards with extra option `-p` to replay the issue for advanced troubleshooting.
+Since Arthas stores the context of the call, you can even *replay* the method calling afterwards with extra option `-p` to replay the issue for advanced troubleshooting, option `--replay-times` 
+define the replay execution times, option  `--replay-interval` define the interval(unit in ms,with default value 1000) of replays   
 
 ```bash
 $ tt -i 1004 -p
